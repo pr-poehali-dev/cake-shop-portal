@@ -606,9 +606,569 @@ const Admin = () => {
                       Следующая
                     </Button>
                   </div>
+
+              </CardContent>
+            </Card>
+          </TabsContent>
+          
+          <TabsContent value="analytics">
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-2xl font-semibold">Аналитика продаж</h2>
+                  <div className="flex gap-2">
+                    <Select defaultValue="month">
+                      <SelectTrigger className="w-[150px]">
+                        <SelectValue placeholder="Период" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="week">Неделя</SelectItem>
+                        <SelectItem value="month">Месяц</SelectItem>
+                        <SelectItem value="quarter">Квартал</SelectItem>
+                        <SelectItem value="year">Год</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Button variant="outline" size="sm">
+                      Экспорт отчета
+                    </Button>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <Card>
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-semibold mb-4">Ежемесячные продажи</h3>
+                      <div className="h-64 flex items-end gap-2">
+                        {analytics.monthlySales.map((item, index) => (
+                          <div key={index} className="flex-1 flex flex-col items-center">
+                            <div 
+                              className="w-full bg-primary/80 hover:bg-primary transition-colors rounded-t-md" 
+                              style={{ height: `${(item.amount / 75000) * 100}%` }}
+                            ></div>
+                            <span className="text-xs mt-1">{item.month}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card>
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-semibold mb-4">Топ продаж</h3>
+                      <div className="space-y-4">
+                        {analytics.topSellingProducts.map((product, index) => (
+                          <div key={index}>
+                            <div className="flex justify-between items-center mb-1">
+                              <span>{product.name}</span>
+                              <span className="font-semibold">{product.sold} шт.</span>
+                            </div>
+                            <Progress value={(product.sold / 50) * 100} className="h-2" />
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+                
+                <Card>
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-semibold mb-4">Продажи по категориям</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <div className="bg-gray-50 p-4 rounded-md text-center">
+                        <h4 className="text-gray-500 mb-2">Торты</h4>
+                        <p className="text-2xl font-bold">42%</p>
+                        <div className="text-sm text-green-600 mt-1">↑ 8%</div>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-md text-center">
+                        <h4 className="text-gray-500 mb-2">Капкейки</h4>
+                        <p className="text-2xl font-bold">31%</p>
+                        <div className="text-sm text-green-600 mt-1">↑ 5%</div>
+                      </div>
+                      <div className="bg-gray-50 p-4 rounded-md text-center">
+                        <h4 className="text-gray-500 mb-2">Пирожные</h4>
+                        <p className="text-2xl font-bold">27%</p>
+                        <div className="text-sm text-red-600 mt-1">↓ 3%</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                
+                <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <Card>
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-semibold mb-4">Способы оплаты</h3>
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="flex items-center p-3 bg-gray-50 rounded-md">
+                          <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                            <span className="text-xl">💳</span>
+                          </div>
+                          <div>
+                            <p className="text-sm text-gray-500">Карта</p>
+                            <p className="font-semibold">68%</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center p-3 bg-gray-50 rounded-md">
+                          <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                            <span className="text-xl">📱</span>
+                          </div>
+                          <div>
+                            <p className="text-sm text-gray-500">Онлайн</p>
+                            <p className="font-semibold">24%</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center p-3 bg-gray-50 rounded-md">
+                          <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                            <span className="text-xl">💰</span>
+                          </div>
+                          <div>
+                            <p className="text-sm text-gray-500">Наличные</p>
+                            <p className="font-semibold">8%</p>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card>
+                    <CardContent className="p-6">
+                      <h3 className="text-lg font-semibold mb-4">Каналы продаж</h3>
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="flex items-center p-3 bg-gray-50 rounded-md">
+                          <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                            <span className="text-xl">🌐</span>
+                          </div>
+                          <div>
+                            <p className="text-sm text-gray-500">Сайт</p>
+                            <p className="font-semibold">54%</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center p-3 bg-gray-50 rounded-md">
+                          <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                            <span className="text-xl">📞</span>
+                          </div>
+                          <div>
+                            <p className="text-sm text-gray-500">Телефон</p>
+                            <p className="font-semibold">21%</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center p-3 bg-gray-50 rounded-md">
+                          <div className="h-12 w-12 bg-primary/10 rounded-full flex items-center justify-center mr-3">
+                            <span className="text-xl">🏪</span>
+                          </div>
+                          <div>
+                            <p className="text-sm text-gray-500">Магазин</p>
+                            <p className="font-semibold">25%</p>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+          
+          <TabsContent value="settings">
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-2xl font-semibold">Настройки магазина</h2>
+                  <Button>Сохранить изменения</Button>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  <div className="md:col-span-2">
+                    <div className="space-y-6">
+                      <div>
+                        <h3 className="text-lg font-semibold mb-4">Основная информация</h3>
+                        <div className="space-y-4">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                              <label htmlFor="shop-name" className="block font-medium">Название магазина</label>
+                              <Input id="shop-name" defaultValue="Сладкие Мечты" />
+                            </div>
+                            <div className="space-y-2">
+                              <label htmlFor="shop-email" className="block font-medium">Email магазина</label>
+                              <Input id="shop-email" type="email" defaultValue="info@tortikiprazdnik.ru" />
+                            </div>
+                          </div>
+                          
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                              <label htmlFor="shop-phone" className="block font-medium">Телефон</label>
+                              <Input id="shop-phone" defaultValue="+7 (495) 123-45-67" />
+                            </div>
+                            <div className="space-y-2">
+                              <label htmlFor="shop-currency" className="block font-medium">Валюта</label>
+                              <Select defaultValue="rub">
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Выберите валюту" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="rub">Российский рубль (₽)</SelectItem>
+                                  <SelectItem value="usd">Доллар США ($)</SelectItem>
+                                  <SelectItem value="eur">Евро (€)</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <label htmlFor="shop-address" className="block font-medium">Адрес</label>
+                            <Textarea id="shop-address" defaultValue="ул. Кондитерская, 123, Москва, 123456" />
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <Separator />
+                      
+                      <div>
+                        <h3 className="text-lg font-semibold mb-4">Настройки заказов</h3>
+                        <div className="space-y-4">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                              <label htmlFor="min-order" className="block font-medium">Мин. сумма заказа</label>
+                              <Input id="min-order" type="number" defaultValue="500" />
+                            </div>
+                            <div className="space-y-2">
+                              <label htmlFor="delivery-fee" className="block font-medium">Стоимость доставки</label>
+                              <Input id="delivery-fee" type="number" defaultValue="300" />
+                            </div>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            <label htmlFor="free-delivery-threshold" className="block font-medium">Бесплатная доставка от</label>
+                            <Input id="free-delivery-threshold" type="number" defaultValue="3000" />
+                          </div>
+                          
+                          <div className="flex items-center space-x-2">
+                            <Switch id="allow-preorders" defaultChecked />
+                            <label htmlFor="allow-preorders">Разрешить предварительные заказы</label>
+                          </div>
+                          
+                          <div className="flex items-center space-x-2">
+                            <Switch id="allow-pickups" defaultChecked />
+                            <label htmlFor="allow-pickups">Разрешить самовывоз</label>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <Separator />
+                      
+                      <div>
+                        <h3 className="text-lg font-semibold mb-4">Способы оплаты</h3>
+                        <div className="space-y-3">
+                          <div className="flex items-center space-x-2">
+                            <Checkbox id="payment-card" defaultChecked />
+                            <label htmlFor="payment-card">Банковские карты</label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox id="payment-cash" defaultChecked />
+                            <label htmlFor="payment-cash">Наличные при доставке</label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox id="payment-online" defaultChecked />
+                            <label htmlFor="payment-online">Онлайн-оплата</label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox id="payment-invoice" />
+                            <label htmlFor="payment-invoice">Счет на юр. лицо</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div>
+                    <div className="space-y-6">
+                      <div>
+                        <h3 className="text-lg font-semibold mb-4">Логотип магазина</h3>
+                        <div className="border rounded-md p-4 text-center">
+                          <div className="w-32 h-32 mx-auto bg-gray-100 mb-4 rounded-md flex items-center justify-center">
+                            <span className="text-2xl font-bold text-primary">СМ</span>
+                          </div>
+                          <Button variant="outline" size="sm">Загрузить логотип</Button>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <h3 className="text-lg font-semibold mb-4">Уведомления</h3>
+                        <div className="space-y-3">
+                          <div className="flex items-center space-x-2">
+                            <Switch id="notify-orders" defaultChecked />
+                            <label htmlFor="notify-orders">Новые заказы</label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Switch id="notify-low-stock" defaultChecked />
+                            <label htmlFor="notify-low-stock">Низкий запас товаров</label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Switch id="notify-reviews" defaultChecked />
+                            <label htmlFor="notify-reviews">Новые отзывы</label>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <h3 className="text-lg font-semibold mb-4">Социальные сети</h3>
+                        <div className="space-y-4">
+                          <div className="space-y-2">
+                            <label htmlFor="social-vk" className="block font-medium">ВКонтакте</label>
+                            <Input id="social-vk" placeholder="https://vk.com/..." />
+                          </div>
+                          <div className="space-y-2">
+                            <label htmlFor="social-telegram" className="block font-medium">Telegram</label>
+                            <Input id="social-telegram" placeholder="https://t.me/..." />
+                          </div>
+                          <div className="space-y-2">
+                            <label htmlFor="social-instagram" className="block font-medium">Instagram</label>
+                            <Input id="social-instagram" placeholder="https://instagram.com/..." />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="mt-8 flex gap-4 justify-end">
+                  <Button variant="outline">Отмена</Button>
+                  <Button>Сохранить изменения</Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="inventory">
+            <Card>
+              <CardContent className="p-6">
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-2xl font-semibold">Управление складом</h2>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm">
+                      Экспорт
+                    </Button>
+                    <Button size="sm">
+                      Обновить запасы
+                    </Button>
+                  </div>
+                </div>
+                
+                <div className="flex flex-col md:flex-row gap-4 mb-6">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
+                    <Input placeholder="Поиск ингредиентов..." className="pl-10" />
+                  </div>
+                  <Select defaultValue="all">
+                    <SelectTrigger className="w-full md:w-[180px]">
+                      <SelectValue placeholder="Категория" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Все категории</SelectItem>
+                      <SelectItem value="flour">Мука и основы</SelectItem>
+                      <SelectItem value="cream">Кремы и начинки</SelectItem>
+                      <SelectItem value="fruits">Фрукты и ягоды</SelectItem>
+                      <SelectItem value="decor">Декор</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <Select defaultValue="low">
+                    <SelectTrigger className="w-full md:w-[180px]">
+                      <SelectValue placeholder="Статус" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Все статусы</SelectItem>
+                      <SelectItem value="low">Низкий запас</SelectItem>
+                      <SelectItem value="normal">Нормальный запас</SelectItem>
+                      <SelectItem value="high">Высокий запас</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Наименование</TableHead>
+                      <TableHead>Категория</TableHead>
+                      <TableHead>На складе</TableHead>
+                      <TableHead>Единица</TableHead>
+                      <TableHead>Мин. кол-во</TableHead>
+                      <TableHead>Статус</TableHead>
+                      <TableHead>Действия</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell className="font-medium">Мука высший сорт</TableCell>
+                      <TableCell>Мука и основы</TableCell>
+                      <TableCell>24</TableCell>
+                      <TableCell>кг</TableCell>
+                      <TableCell>10</TableCell>
+                      <TableCell>
+                        <Badge className="bg-green-100 text-green-800">Нормальный запас</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button variant="ghost" size="icon">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button variant="ghost" size="icon">
+                            <Trash2 className="h-4 w-4 text-red-500" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">Сахар-песок</TableCell>
+                      <TableCell>Мука и основы</TableCell>
+                      <TableCell>18</TableCell>
+                      <TableCell>кг</TableCell>
+                      <TableCell>10</TableCell>
+                      <TableCell>
+                        <Badge className="bg-green-100 text-green-800">Нормальный запас</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button variant="ghost" size="icon">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button variant="ghost" size="icon">
+                            <Trash2 className="h-4 w-4 text-red-500" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">Шоколад темный</TableCell>
+                      <TableCell>Кремы и начинки</TableCell>
+                      <TableCell>5</TableCell>
+                      <TableCell>кг</TableCell>
+                      <TableCell>8</TableCell>
+                      <TableCell>
+                        <Badge className="bg-yellow-100 text-yellow-800">Низкий запас</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button variant="ghost" size="icon">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button variant="ghost" size="icon">
+                            <Trash2 className="h-4 w-4 text-red-500" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">Ягоды малины свежие</TableCell>
+                      <TableCell>Фрукты и ягоды</TableCell>
+                      <TableCell>2</TableCell>
+                      <TableCell>кг</TableCell>
+                      <TableCell>5</TableCell>
+                      <TableCell>
+                        <Badge className="bg-red-100 text-red-800">Критический запас</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button variant="ghost" size="icon">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button variant="ghost" size="icon">
+                            <Trash2 className="h-4 w-4 text-red-500" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className="font-medium">Сливки 33%</TableCell>
+                      <TableCell>Кремы и начинки</TableCell>
+                      <TableCell>12</TableCell>
+                      <TableCell>л</TableCell>
+                      <TableCell>5</TableCell>
+                      <TableCell>
+                        <Badge className="bg-green-100 text-green-800">Нормальный запас</Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex gap-2">
+                          <Button variant="ghost" size="icon">
+                            <Edit className="h-4 w-4" />
+                          </Button>
+                          <Button variant="ghost" size="icon">
+                            <Trash2 className="h-4 w-4 text-red-500" />
+                          </Button>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+                
+                <div className="mt-6">
+                  <h3 className="text-xl font-semibold mb-4">Добавить ингредиент</h3>
+                  <form className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="space-y-2">
+                      <label htmlFor="ingredient-name" className="block font-medium">Наименование</label>
+                      <Input id="ingredient-name" placeholder="Введите название" />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label htmlFor="ingredient-category" className="block font-medium">Категория</label>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Выберите категорию" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="flour">Мука и основы</SelectItem>
+                          <SelectItem value="cream">Кремы и начинки</SelectItem>
+                          <SelectItem value="fruits">Фрукты и ягоды</SelectItem>
+                          <SelectItem value="decor">Декор</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label htmlFor="ingredient-unit" className="block font-medium">Единица измерения</label>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Выберите единицу" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="kg">кг</SelectItem>
+                          <SelectItem value="g">г</SelectItem>
+                          <SelectItem value="l">л</SelectItem>
+                          <SelectItem value="pcs">шт</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label htmlFor="ingredient-quantity" className="block font-medium">Количество</label>
+                      <Input id="ingredient-quantity" type="number" placeholder="0" />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label htmlFor="ingredient-min" className="block font-medium">Мин. количество</label>
+                      <Input id="ingredient-min" type="number" placeholder="0" />
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <label htmlFor="ingredient-supplier" className="block font-medium">Поставщик</label>
+                      <Input id="ingredient-supplier" placeholder="Название поставщика" />
+                    </div>
+                    
+                    <div className="md:col-span-3 flex gap-2">
+                      <Button type="submit">Добавить ингредиент</Button>
+                      <Button type="button" variant="outline">Отмена</Button>
+                    </div>
+                  </form>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </MainLayout>
+  );
+};
+
+export default Admin;
+
           </TabsContent>
           
           <TabsContent value="analytics">
