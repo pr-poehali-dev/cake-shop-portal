@@ -11,6 +11,9 @@ import Cart from "./pages/Cart";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Admin from "./pages/Admin";
+import Catalog from "./pages/Catalog";
+import Auth from "./pages/Auth";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +30,9 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

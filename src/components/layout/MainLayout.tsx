@@ -27,16 +27,21 @@ const MainLayout = ({ children }: MainLayoutProps) => {
               <Link to="/" className="text-gray-700 hover:text-primary transition-colors">Главная</Link>
               <Link to="/about" className="text-gray-700 hover:text-primary transition-colors">О нас</Link>
               <Link to="/contact" className="text-gray-700 hover:text-primary transition-colors">Контакты</Link>
+
+              <Link to="/catalog" className="text-gray-700 hover:text-primary transition-colors">Каталог</Link>
+              <Link to="/about" className="text-gray-700 hover:text-primary transition-colors">О нас</Link>
+              <Link to="/contact" className="text-gray-700 hover:text-primary transition-colors">Контакты</Link>
               <Link to="/cart">
                 <Button variant="outline" size="icon">
                   <ShoppingCart className="h-5 w-5" />
                 </Button>
               </Link>
-              <Link to="/admin">
-                <Button variant="default" size="sm">
-                  Админ-панель
+              <Link to="/auth">
+                <Button variant="outline" size="sm">
+                  Войти
                 </Button>
               </Link>
+
             </nav>
             
             {/* Mobile Menu Button */}
